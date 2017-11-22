@@ -1,0 +1,4 @@
+---
+- name: dockercompose_install_application
+  src: https://github.com/prometeo-cloud/dockercompose_install_application
+...
