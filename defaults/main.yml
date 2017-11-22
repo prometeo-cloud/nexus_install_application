@@ -1,5 +1,4 @@
 ---
-# defaults file for nexus_install_application
 docker_registry: "registry.connect.redhat.com"
 nexus_image_name: "sonatype/nexus-repository-manager:3.6.0-01-rhel"
 docker_compose_version: "1.17.1"
