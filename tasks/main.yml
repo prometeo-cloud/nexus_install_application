@@ -2,40 +2,6 @@
 - name: Loading secrets
   include_vars: "secrets.yml"
 
-- name: Checking if EPEL repository is installed
-  yum_repository:
-    name: epel-release
-    description: EPEL YUM Repo
-    baseurl: "{{ epel_uri }}"
-  when: ansible_distribution == 'CentOS'
-
-- name: Checking if pip is installed
-  yum:
-    name: python-pip
-    state: present
-    disable_gpg_check: yes
-
-- name: Checking if Docker-Py is installed
-  pip:
-    name: docker-py
-
-- name: Checking Which is installed
-  yum:
-    name: "which"
-    state: "present"
-
-- name: Checking if Docker Compose is installed
-  command: which docker-compose
-  ignore_errors: "true"
-  register: result
-
-- name: Installing Docker Compose if not present
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-    dest: "/usr/local/bin/docker-compose"
-    mode: "0644"
-  when: result.stderr != ""
-
 - name: Logging into Docker Registry
   docker_login:
     registry: "{{ docker_registry }}"
