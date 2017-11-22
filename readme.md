@@ -39,7 +39,7 @@ The following is a list of default variables used by this role.
 | **nexus_port** | The port number Nexus will be listening on the Docker host. | 8081 |
 | **nexus_data** | The folder where Nexus will store its data on the Docker host. | /nexus-data |
 | **epel_uri** | The base repository of the EPEL repository used to install various dependent packages (only if CentOS is used - for RHEL host assumes managed yum repositories via Satellite. ) | http://dl.fedoraproject.org/pub/epel/7/x86_64/ |
-| docker_compose_version** | The version of Docker Compose to be installed to manage the lifecycle of the Nexus Docker container. | 1.17.1 |
+| **docker_compose_version** | The version of Docker Compose to be installed to manage the lifecycle of the Nexus Docker container. | 1.17.1 |
 
 ### Secrets
 
