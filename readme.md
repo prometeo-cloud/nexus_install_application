@@ -70,6 +70,8 @@ To test using Docker as a host:
 $ molecule test
 ```
 
+**NOTE**: requires molecule/default/vars/secrets.yml file to be added manually before the test is run.
+
 To test using Vagrant as a host:
 
 ```bash
@@ -77,3 +79,5 @@ To test using Vagrant as a host:
 # executes the vagrant molecule scenario configured to use the Vagrant driver 
 $ molecule test -s vagrant
 ```
+
+**NOTE**: requires molecule/vagrant/vars/secrets.yml file to be added manually before the test is run.
