@@ -1,3 +1,4 @@
 *.iml
 ./molecule/default/.molecule
+./molecule/vagrant/.molecule
 ./vars/secrets.yml

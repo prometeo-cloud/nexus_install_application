@@ -59,3 +59,21 @@ Default Nexus credentials, which need to be changed by the Administrator after i
 ```bash
 admin : admin123
 ```
+
+### Testing the role
+
+To test using Docker as a host:
+
+```bash
+# requires Docker 
+# executes the default molecule scenario configured to use the Docker driver  
+$ molecule test
+```
+
+To test using Vagrant as a host:
+
+```bash
+# requires Vagrant and a virtualisation engine (VirtualBox or libvirt)
+# executes the vagrant molecule scenario configured to use the Vagrant driver 
+$ molecule test -s vagrant
+```
