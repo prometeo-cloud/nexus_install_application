@@ -1,6 +1,11 @@
 ---
 - name: Loading secrets
-  include_vars: "secrets.yml"
+  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
+
+- name: Installing Docker
+  yum:
+    name: docker
+    state: present
 
 - name: Logging into Docker Registry
   docker_login:
