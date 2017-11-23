@@ -9,10 +9,10 @@
   when: ansible_virtualization_type != "docker"
 
 - name: Starting the Docker service
-  service:
+  systemd:
     name: docker
-    enabled: true
-    state: started
+    enabled: "True"
+    state: "started"
   when: ansible_virtualization_type != "docker"
 
 - name: Logging into Docker Registry
