@@ -9,6 +9,10 @@ platforms:
   - name: nexus
     image: centos:7
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
+#    command:
+#      - sh
+#      - -c
+#      - /opt/sonatype/start-nexus-repository-manager.sh
 provisioner:
   name: ansible
   lint:

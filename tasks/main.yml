@@ -5,7 +5,8 @@
 - name: Installing Docker
   yum:
     name: docker-latest
-    state: present
+    enabled: true
+    state: started
 
 - name: Logging into Docker Registry
   docker_login:
