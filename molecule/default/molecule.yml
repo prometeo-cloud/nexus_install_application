@@ -20,11 +20,11 @@ provisioner:
 scenario:
   name: default
   test_sequence:
-    - destroy
+#    - destroy
     - dependency
 #    - syntax
-    - create
-    - prepare
+#    - create
+#    - prepare
     - converge
 #    - idempotence
 #    - lint

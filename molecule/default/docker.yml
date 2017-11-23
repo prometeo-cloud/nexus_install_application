@@ -1,0 +1,28 @@
+---
+- name: Building the base Docker image for test containers
+  docker_image:
+    name: "molecule_local/c7-systemd"
+    tag:  "1"
+    path: "c7-systemd"
+
+- name: Delete existing Docker containers
+  docker_container:
+    name:  "nexus"
+    image: "molecule_local/c7-systemd:1"
+    state: absent
+    force_kill: true
+
+- name: Start up container
+  docker_container:
+    name: "nexus"
+    image: "molecule_local/c7-systemd:1"
+    hostname: "instance"
+    detach: yes
+    tty: yes
+    exposed_ports: "[ 80 ]"
+    command: "/usr/sbin/init"
+    state: started
+    privileged: yes
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+...

@@ -1,4 +1,12 @@
 ---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Create
+      include_tasks: "docker.yml"
+
 - name: Converge
   hosts: all
 
