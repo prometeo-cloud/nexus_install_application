@@ -22,7 +22,7 @@ scenario:
   test_sequence:
     - destroy
     - dependency
-    - syntax
+#    - syntax
     - create
     - prepare
     - converge
