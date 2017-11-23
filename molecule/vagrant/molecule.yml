@@ -8,7 +8,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: nexus_install_application
+  - name: nexus
     box: centos/7
 provisioner:
   name: ansible
