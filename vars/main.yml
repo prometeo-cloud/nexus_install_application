@@ -1,0 +1,5 @@
+---
+repos_to_enable:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+...

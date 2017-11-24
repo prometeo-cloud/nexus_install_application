@@ -1,17 +1,31 @@
 ---
-#- name: Loading secrets
-#  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
+- name: Loading secrets
+  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
+  failed_when: false
+  changed_when: false
+
+- name: Enable required repositories
+  command: subscription-manager repos --enable="{{ item }}"
+  with_items: "{{ repos_to_enable }}"
 
 - name: Installing Docker
   yum:
     name: docker-latest
     state: present
 
+- name: Copying Docker storage setup file
+  template:
+    src: "templates/docker-storage-setup.j2"
+    dest: "/etc/sysconfig/docker-storage-setup"
+
+- name: Configuring docker storage
+  command: docker-storage-setup
+
 - name: Starting the Docker service
-  systemd:
-    name: docker-latest
-    enabled: "True"
-    state: "started"
+  service:
+    name: docker
+    enabled: yes
+    state: started
 
 - name: Logging into Docker Registry
   docker_login:
@@ -22,12 +36,12 @@
 - name: Acquiring Nexus image
   docker_image:
      name: "{{ docker_registry }}/{{ nexus_image_name }}"
-     state: "present"
+     state: present
 
 - name: Checking if Nexus data folder exists
   file:
     path: "{{ nexus_data }}"
-    state: "directory"
+    state: directory
 
 - name: Start up Nexus Docker container
   docker_container:
