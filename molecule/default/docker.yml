@@ -25,4 +25,5 @@
     privileged: yes
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/cache/yum/neus:/var/cache/yum:rw
 ...

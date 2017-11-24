@@ -1,19 +1,17 @@
 ---
-- name: Loading secrets
-  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
+#- name: Loading secrets
+#  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
 
 - name: Installing Docker
   yum:
     name: docker-latest
     state: present
-#  when: ansible_virtualization_type != "docker"
 
 - name: Starting the Docker service
   systemd:
-    name: docker
+    name: docker-latest
     enabled: "True"
     state: "started"
-#  when: ansible_virtualization_type != "docker"
 
 - name: Logging into Docker Registry
   docker_login:
@@ -42,3 +40,4 @@
     volumes:
       - "{{ nexus_data }}:{{ nexus_data }}"
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+...

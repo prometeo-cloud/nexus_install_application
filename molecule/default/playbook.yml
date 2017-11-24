@@ -9,7 +9,12 @@
 
 - name: Converge
   hosts: all
-
+  pre_tasks:
+    - name: Set yum cache to "keep"
+      replace:
+        dest: /etc/yum.conf
+        regexp:  'keepcache=(.*)'
+        replace: 'keepcache=1'
   roles:
     - role: nexus_install_application
 ...
