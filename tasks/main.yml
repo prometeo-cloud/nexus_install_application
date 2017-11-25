@@ -11,16 +11,10 @@
      name: "{{ nexus_registry }}/{{ nexus_image_name }}"
      state: present
 
-- name: Creating Nexus data folder
-  file:
-    path: "{{ nexus_data }}"
-    state: directory
-    owner: "{{ nexus_user }}"
-
-- name: Starting up the Nexus container
+- name: Starting up the Nexus container using a data volume
   docker_service:
     state: present
-    project_name: nexus_repository_manager
+    project_name: nexus
     definition:
       version: '2'
       services:
@@ -29,7 +23,7 @@
           ports:
             - "{{ nexus_port }}"
           volumes:
-            - "{{ nexus_data }}:{{ nexus_data }}"
+            - "{{ nexus_data }}:/{{ nexus_data }}"
   become: yes
   register: output
 
