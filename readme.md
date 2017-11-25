@@ -2,7 +2,7 @@
 
 ## Description:
 
-Install a Nexus Server using a docker image built from a binary artefact in a specified binary repository.
+Install a Nexus Server using a docker image pulled from a Docker registry.
 
 ## Behaviour:
 
@@ -32,14 +32,13 @@ So that binary artefacts can be managed centrally.
 
 The following is a list of default variables used by this role.
 
-| Variable  | Description  | Default  |
-|---|---|---|
-| **docker_registry** | The name of the docker registry host. |"registry.connect.redhat.com" |
-| **nexus_image_name** | The fully qualified name of the Docker image in the Docker registry, including the tag. |"sonatype/nexus-repository-manager:3.6.0-01-rhel" |
-| **nexus_port** | The port number Nexus will be listening on the Docker host. | 8081 |
-| **nexus_data** | The folder where Nexus will store its data on the Docker host. | /nexus-data |
-| **epel_uri** | The base repository of the EPEL repository used to install various dependent packages (only if CentOS is used - for RHEL host assumes managed yum repositories via Satellite. ) | http://dl.fedoraproject.org/pub/epel/7/x86_64/ |
-| **docker_compose_version** | The version of Docker Compose to be installed to manage the lifecycle of the Nexus Docker container. | 1.17.1 |
+| Variable  | Description  |
+|---|---|
+| **nexus_registry** | The name of the docker registry host use to pull the Nexus docker image. |
+| **nexus_registry_login** | Whether to enable Docker registry login for secure registries. Its default value is "true". |
+| **nexus_image_name** | The fully qualified name of the Docker image in the Docker registry, including the tag. |
+| **nexus_port** | The port mapping in the format **host-port:container-port(i.e. 8081)**. |
+| **nexus_data** | The folder where Nexus will store its data on the Docker host. |
 
 ### Secrets
 
@@ -47,10 +46,10 @@ The following secrets are required by this role:
 
 | Variable  | Description  |
 |---|---|
-| **registry_username** | The user name used to log into the Docker registry containing the required Nexus image. |
-| **registry_password** | The password used to log into the Docker registry containing the required Nexus image. |
+| **nexus_registry_username** | The user name used to log into the Docker registry containing the required Nexus image. |
+| **nexus_registry_password** | The password used to log into the Docker registry containing the required Nexus image. |
 
-**NOTE**: for testing purposes, a file (i.e. secrets.yml) can be created an placed in the roles /vars folder containing the secret values indicated above. Otherwise the secrets need to be passed as extra variables when executing the role.
+**NOTE**: for testing purposes, a file (i.e. secrets.yml) can be created an placed in the molecule /vars folder containing the secret values indicated above. Otherwise the secrets need to be passed as extra variables when executing the role.
 
 ### Default Nexus Credentials
 
@@ -65,7 +64,7 @@ admin : admin123
 To test using Docker as a host:
 
 ```bash
-# requires Docker 
+# requires Docker
 # executes the default molecule scenario configured to use the Docker driver  
 $ molecule test
 ```
@@ -76,7 +75,7 @@ To test using Vagrant as a host:
 
 ```bash
 # requires Vagrant and a virtualisation engine (VirtualBox or libvirt)
-# executes the vagrant molecule scenario configured to use the Vagrant driver 
+# executes the vagrant molecule scenario configured to use the Vagrant driver
 $ molecule test -s vagrant
 ```
 

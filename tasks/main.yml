@@ -1,57 +1,36 @@
 ---
-- name: Loading secrets
-  include_vars: "{{ playbook_dir }}/vars/secrets.yml"
-  failed_when: false
-  changed_when: false
-
-- name: Enable required repositories
-  command: subscription-manager repos --enable="{{ item }}"
-  with_items: "{{ repos_to_enable }}"
-
-- name: Installing Docker
-  yum:
-    name: docker-latest
-    state: present
-
-- name: Copying Docker storage setup file
-  template:
-    src: "templates/docker-storage-setup.j2"
-    dest: "/etc/sysconfig/docker-storage-setup"
-
-- name: Configuring docker storage
-  command: docker-storage-setup
-
-- name: Starting the Docker service
-  service:
-    name: docker
-    enabled: yes
-    state: started
-
 - name: Logging into Docker Registry
   docker_login:
-    registry: "{{ docker_registry }}"
-    username: "{{ registry_username }}"
-    password: "{{ registry_password }}"
+    registry: "{{ nexus_registry }}"
+    username: "{{ nexus_registry_username }}"
+    password: "{{ nexus_registry_password }}"
+  when: nexus_registry_login == true
 
-- name: Acquiring Nexus image
+- name: Pulling Nexus image
   docker_image:
-     name: "{{ docker_registry }}/{{ nexus_image_name }}"
+     name: "{{ nexus_registry }}/{{ nexus_image_name }}"
      state: present
 
-- name: Checking if Nexus data folder exists
+- name: Creating Nexus data folder
   file:
     path: "{{ nexus_data }}"
     state: directory
 
-- name: Start up Nexus Docker container
-  docker_container:
-    name: "nexus"
-    image: "{{ docker_registry }}/{{ nexus_image_name }}"
-    detach: yes
-    state: started
-    exposed_ports: "[ {{ nexus_port }} ]"
-    privileged: no
-    volumes:
-      - "{{ nexus_data }}:{{ nexus_data }}"
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+- name: Starting up the Nexus container
+  docker_service:
+    state: present
+    definition:
+      version: '2'
+      services:
+        nexus3:
+          image: "{{ nexus_registry }}/{{ nexus_image_name }}"
+          ports:
+            - "{{ nexus_port }}"
+          volumes:
+            - "{{ nexus_data }}:{{ nexus_data }}"
+  become: yes
+  register: output
+
+- debug:
+    var: output
 ...

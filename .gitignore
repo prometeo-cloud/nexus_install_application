@@ -1,5 +1,4 @@
 *.iml
-./vars/secrets.yml
-./molecule/default/.molecule
-./molecule/*/vars
-./molecule/*/.molecule
+.idea
+secrets.yml
+.molecule

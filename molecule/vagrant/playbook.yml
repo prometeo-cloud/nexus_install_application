@@ -1,5 +1,10 @@
 ---
 - name: Converge
   hosts: all
+
+  pre_tasks:
+    - name: Loading secrets
+      include_vars: "{{ playbook_dir }}/vars/secrets.yml"
+
   roles:
     - role: nexus_install_application

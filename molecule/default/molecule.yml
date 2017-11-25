@@ -6,13 +6,9 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: nexus
+  - name: nexus-install-application
     image: centos:7
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
-#    command:
-#      - sh
-#      - -c
-#      - /opt/sonatype/start-nexus-repository-manager.sh
 provisioner:
   name: ansible
   lint:
@@ -20,17 +16,17 @@ provisioner:
 scenario:
   name: default
   test_sequence:
-#    - destroy
+    - destroy
     - dependency
-#    - syntax
-#    - create
-#    - prepare
+    - syntax
+    - create
+    - prepare
     - converge
 #    - idempotence
 #    - lint
     - side_effect
     - verify
-    - destroy
+      - destroy
 verifier:
   name: testinfra
   lint:
