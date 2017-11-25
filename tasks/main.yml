@@ -15,10 +15,12 @@
   file:
     path: "{{ nexus_data }}"
     state: directory
+    owner: "{{ nexus_user }}"
 
 - name: Starting up the Nexus container
   docker_service:
     state: present
+    project_name: nexus_repository_manager
     definition:
       version: '2'
       services:
