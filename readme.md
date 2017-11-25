@@ -39,7 +39,6 @@ The following is a list of default variables used by this role.
 | **nexus_image_name** | The fully qualified name of the Docker image in the Docker registry, including the tag. |
 | **nexus_port** | The port mapping in the format **host-port:container-port(i.e. 8081)**. |
 | **nexus_data** | The folder where Nexus will store its data on the Docker host. |
-| **nexus_user** | The user or UID which runs the Nexus process. |
 
 ### Secrets
 
