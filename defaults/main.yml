@@ -3,5 +3,5 @@ nexus_registry_login: true
 nexus_registry: "registry.connect.redhat.com"
 nexus_image_name: "sonatype/nexus-repository-manager:3.6.0-01-rhel"
 nexus_port: "8081:8081"
-nexus_data: "nexus-data"
+nexus_data: "/nexus-data"
 ...

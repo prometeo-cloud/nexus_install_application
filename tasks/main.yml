@@ -23,7 +23,9 @@
           ports:
             - "{{ nexus_port }}"
           volumes:
-            - "{{ nexus_data }}:/{{ nexus_data }}"
+            - "nexus-data:{{ nexus_data }}"
+      volumes:
+        nexus-data:
   become: yes
   register: output
 
