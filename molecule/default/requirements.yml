@@ -1,4 +1,4 @@
 ---
-- name: dockercompose_install_application
+- name: dockercompose_configure_machine
   src: https://github.com/prometeo-cloud/dockercompose_configure_machine
 ...
